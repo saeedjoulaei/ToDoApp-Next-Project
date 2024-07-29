@@ -1,3 +1,5 @@
+import HomePage from "../components/template/HomePage";
+
 export default function Home() {
-  return <h1>welcome to next project</h1>;
+  return <HomePage />;
 }
