@@ -21,6 +21,7 @@ async function handler(req, res) {
       .json({ status: "failed", message: "you are not logged in" });
   }
   const user = await User.findOne({ email: session.user.email });
+
   if (!user) {
     return res
       .status(404)
@@ -34,13 +35,18 @@ async function handler(req, res) {
         .status(422)
         .json({ staus: "failed", message: "password is incorrect" });
     }
-    user.name;
-    user.lastName;
+    user.name = name;
+    user.lastName = lastName;
     user.save();
 
     res.status(200).json({
       status: "success",
       data: { name, lastName, email: session.user.email },
+    });
+  } else if (req.method === "GET") {
+    res.status(200).json({
+      status: "success",
+      data: { name: user.name, lastName: user.lastName, email: user.email },
     });
   }
 }
